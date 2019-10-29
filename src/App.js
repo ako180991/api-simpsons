@@ -3,19 +3,22 @@ import axios from 'axios';
 import './App.css';
 import DisplayEmployee from './components/DisplayEmployee';
 
-const sampleEmployee = {
   
 
-};
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      employee: sampleEmployee
+      employee: null
       
     };
     this.getEmployee = this.getEmployee.bind(this);
+  }
+
+  componentDidMount() {
+    this.getEmployee();
   }
   getEmployee() {
     // Send the request
@@ -33,7 +36,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <DisplayEmployee employee={this.state.employee} />
+        {
+        this.state.employee
+          ? <DisplayEmployee employee={this.state.employee} />
+          : <p>Loading</p>
+      }
         <button type="button" onClick={this.getEmployee}>Get employee</button>
       </div>
     );
